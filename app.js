@@ -1,34 +1,106 @@
-// Step 1: Add your API key
-const apiKey = "e7ee2695e33add918e7f9d4a750dd972";
+const API_KEY = "e7ee2695e33add918e7f9d4a750dd972";
+const API_URL = "https://api.openweathermap.org/data/2.5/weather";
 
-// Step 2: Choose a city
-const city = "Paris";
+const searchBtn = document.getElementById("search-btn");
+const cityInput = document.getElementById("city-input");
+const weatherDisplay = document.getElementById("weather-display");
 
-// Step 3: Create API URL
-const url =
-`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+// =============================
+// Get Weather (Async/Await)
+// =============================
+async function getWeather(city) {
 
-// Step 4: Fetch weather data
-axios.get(url)
-.then(function(response) {
+    showLoading();
 
-    // Step 5: Get data from response
-    const data = response.data;
+    searchBtn.disabled = true;
+    searchBtn.textContent = "Searching...";
 
-    // Step 6: Update HTML elements
-    document.getElementById("city").textContent = data.name;
+    const url = `${API_URL}?q=${city}&appid=${API_KEY}&units=metric`;
 
-    document.getElementById("temperature").textContent =
-        "Temperature: " + data.main.temp + "°C";
+    try {
+        const response = await axios.get(url);
+        displayWeather(response.data);
 
-    document.getElementById("description").textContent =
-        data.weather[0].description;
+    } catch (error) {
 
-    const iconCode = data.weather[0].icon;
+        if (error.response && error.response.status === 404) {
+            showError("City not found. Please check spelling and try again.");
+        } else {
+            showError("Something went wrong. Please try again later.");
+        }
 
-    document.getElementById("icon").src =
-        `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-})
-.catch(function(error) {
-    console.log("Error:", error);
+    } finally {
+        searchBtn.disabled = false;
+        searchBtn.textContent = "🔍 Search";
+    }
+}
+
+// =============================
+// Display Weather
+// =============================
+function displayWeather(data) {
+
+    const weatherHTML = `
+        <div class="weather-card">
+            <h2>${data.name}, ${data.sys.country}</h2>
+            <div class="temperature">${Math.round(data.main.temp)}°C</div>
+            <p><strong>Condition:</strong> ${data.weather[0].description}</p>
+            <p><strong>Humidity:</strong> ${data.main.humidity}%</p>
+            <p><strong>Wind Speed:</strong> ${data.wind.speed} m/s</p>
+        </div>
+    `;
+
+    weatherDisplay.innerHTML = weatherHTML;
+
+    cityInput.focus();
+}
+
+// =============================
+// Show Loading
+// =============================
+function showLoading() {
+    weatherDisplay.innerHTML = `
+        <div class="loading-container">
+            <div class="spinner"></div>
+            <p>Fetching weather data...</p>
+        </div>
+    `;
+}
+
+// =============================
+// Show Error
+// =============================
+function showError(message) {
+    weatherDisplay.innerHTML = `
+        <div class="error-message">
+            ❌ <strong>Error:</strong> ${message}
+        </div>
+    `;
+}
+
+// =============================
+// Event Listeners
+// =============================
+
+searchBtn.addEventListener("click", () => {
+    const city = cityInput.value.trim();
+
+    if (!city) {
+        showError("Please enter a city name.");
+        return;
+    }
+
+    if (city.length < 2) {
+        showError("City name must be at least 2 characters.");
+        return;
+    }
+
+    getWeather(city);
+    cityInput.value = "";
+});
+
+cityInput.addEventListener("keypress", (event) => {
+    if (event.key === "Enter") {
+        searchBtn.click();
+    }
 });
