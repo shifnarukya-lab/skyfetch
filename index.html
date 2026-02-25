@@ -1,24 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>SkyFetch</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+    <meta charset="UTF-8">
+    <title>SkyFetch Weather Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<body>
-    <h1>SkyFetch Weather Dashboard</h1>
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-    <div id="weather-container">
-        <h2 id="city"></h2>
-        <p id="temperature"></p>
-        <p id="description"></p>
-        <img id="icon" />
-    </div>
-
-    <!-- Axios Library -->
+    <!-- Axios CDN -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-    <!-- Your JavaScript -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>🌤 SkyFetch</h1>
+
+        <!-- Search Section -->
+        <div class="search-section">
+            <input 
+                type="text" 
+                id="city-input" 
+                placeholder="Enter city name..."
+            >
+            <button id="search-btn">🔍 Search</button>
+        </div>
+
+        <!-- Weather Display -->
+        <div id="weather-display">
+            <div class="welcome-message">
+                Enter a city name to get started! 🌍
+            </div>
+        </div>
+    </div>
+
     <script src="app.js"></script>
 </body>
 </html>
