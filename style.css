@@ -1,105 +1,75 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #4facfe, #00f2fe);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #4facfe, #00f2fe);
+  margin: 0;
+  padding: 0;
+  text-align: center;
 }
 
-.app-container {
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 900px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+.container {
+  padding: 20px;
+  max-width: 900px;
+  margin: auto;
 }
 
 h1 {
-    text-align: center;
-    margin-bottom: 20px;
+  color: white;
 }
 
-.search-container {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+.search-section {
+  margin: 20px 0;
 }
 
-#city-input {
-    flex: 1;
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
+input {
+  padding: 10px;
+  width: 250px;
+  border-radius: 5px;
+  border: none;
 }
 
-#search-btn {
-    padding: 10px 15px;
-    border: none;
-    background: #4facfe;
-    color: white;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: 0.3s;
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 5px;
 }
 
-#search-btn:hover {
-    background: #007bff;
+button:hover {
+  opacity: 0.9;
 }
 
-.weather-card {
-    text-align: center;
-    margin-bottom: 25px;
+.weather-display {
+  margin-top: 20px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
 }
 
-.weather-card img {
-    width: 100px;
-}
-
-/* Forecast Section */
-
-.forecast-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 15px;
+.forecast {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
 }
 
 .forecast-card {
-    background: #f5f5f5;
-    padding: 15px;
-    border-radius: 10px;
-    text-align: center;
-    transition: transform 0.3s, box-shadow 0.3s;
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
 }
 
-.forecast-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+.recent-section {
+  margin-top: 20px;
 }
 
-.forecast-card img {
-    width: 60px;
+#recentSearches button {
+  margin: 5px;
+  background: #ffffff;
 }
 
-.loading,
-.error {
-    text-align: center;
-    font-weight: bold;
-}
-
-.error {
-    color: red;
-}
-
-@media (max-width: 600px) {
-    .forecast-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
+.clear-btn {
+  margin-top: 10px;
+  background: crimson;
+  color: white;
 }
